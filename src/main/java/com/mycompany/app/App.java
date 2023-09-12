@@ -7,6 +7,24 @@ import java.text.DecimalFormat;
 
 public class App {
 
+    public static int calc(String line) {
+        if (line.contains("+")) {
+            return 1;
+        } else if (line.contains("-")) {
+            return 2;
+        } else if (line.contains("*")) {
+            return 3;
+        } else if (line.contains(":")) {
+            return 4;
+        }
+        return 1;
+    }
+
+    public static String[] cutstr(String input) {
+        String[] result = input.split("\\+|\\*|-|:");
+        return result;
+    }
+
     //Funktion zur berechnung von + - * /
     public static float berechnen(float a, float b, int art) {
 
@@ -28,6 +46,7 @@ public class App {
     }
 
 
+    //Main
     public static void main(String[] args) {
         //Anlegen Objekte für Einlesen und Formatierung des Erebnisses
         DecimalFormat df = new DecimalFormat("0.00");
@@ -36,7 +55,7 @@ public class App {
         //Soll das Programm beendet werden?
         boolean beenden = false;
 
-        double zwschnErgebnis=0;
+        double zwschnErgebnis = 0;
         boolean ans = false;
         char chans;
 
@@ -45,30 +64,18 @@ public class App {
             String zahlen = "";
 
             System.out.println("Werte mit operator eingaben:");
-            if(ans)
-            {
-                System.out.print((int)zwschnErgebnis);
+            if (ans) {
+                System.out.print((int) zwschnErgebnis);
             }
             zahlen = sc.next();
             zahlen = zahlen.replaceAll("\\s", "");
 
 
-            if (zahlen.contains("+")) {
-                eingabe = 1;
-            } else if (zahlen.contains("-")) {
-                eingabe = 2;
-            } else if (zahlen.contains("*")) {
-                eingabe = 3;
-            } else if (zahlen.contains(":")) {
-                eingabe = 4;
-            } else {
-                continue;
-            }
+            eingabe = calc(zahlen);
 
-            String[] result = zahlen.split("\\+|\\*|-|:");
+            String[] result = cutstr(zahlen);
 
-            if(ans)
-            {
+            if (ans) {
                 result[0] = String.valueOf(zwschnErgebnis);
             }
 
@@ -79,16 +86,11 @@ public class App {
             System.out.println("ANS -> y eingeben sonst n");
             chans = sc.next().charAt(0);
 
-            if(chans == 'y')
-            {
+            if (chans == 'y') {
                 ans = true;
-            }
-            else if(chans == 'n')
-            {
+            } else if (chans == 'n') {
                 ans = false;
             }
-
-
         }
     }
 }
