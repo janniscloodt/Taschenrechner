@@ -36,12 +36,23 @@ public class App {
         //Soll das Programm beendet werden?
         boolean beenden = false;
 
+        double zwschnErgebnis=0;
+        boolean ans = false;
+        char chans;
+
         while (beenden == false) {
             int eingabe = 0;
             String zahlen = "";
 
             System.out.println("Werte mit operator eingaben:");
+            if(ans)
+            {
+                System.out.print((int)zwschnErgebnis);
+            }
             zahlen = sc.next();
+            zahlen = zahlen.replaceAll("\\s", "");
+
+
             if (zahlen.contains("+")) {
                 eingabe = 1;
             } else if (zahlen.contains("-")) {
@@ -56,13 +67,28 @@ public class App {
 
             String[] result = zahlen.split("\\+|\\*|-|:");
 
+            if(ans)
+            {
+                result[0] = String.valueOf(zwschnErgebnis);
+            }
 
-            System.out.println(berechnen(Integer.valueOf(result[0]), Integer.valueOf(result[1]), eingabe));
-            // }
 
-            //Programm Beenden
+            zwschnErgebnis = berechnen(Float.valueOf(result[0]), Float.valueOf(result[1]), eingabe);
 
-            //Wenn eine Fehlerhafte Auswahl getroffen wurde
+            System.out.println(zwschnErgebnis);
+            System.out.println("ANS -> y eingeben sonst n");
+            chans = sc.next().charAt(0);
+
+            if(chans == 'y')
+            {
+                ans = true;
+            }
+            else if(chans == 'n')
+            {
+                ans = false;
+            }
+
+
         }
     }
 }
