@@ -8,7 +8,7 @@ public class App
 {
 
     //Funktion zur berechnung von + - * /
-    private static float berechnen(float a, float b, int art)
+    public static float berechnen(float a, float b, int art)
     {
 
         float ergebnis = 0;
