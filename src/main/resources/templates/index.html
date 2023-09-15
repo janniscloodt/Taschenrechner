@@ -18,7 +18,9 @@
 <form action="#" th:action="@{/}" th:object="${validMath}" method="post">
     <div class="form-group">
 <input type="text" th:field="*{mathValue}" name="value" class="form-control" placeholder="1+1">
-    <button type="submit" class="btn btn-outline-primary">Berechnen</button>
+        <div th:if="${#fields.hasErrors('mathValue')}" th:errors="*{mathValue}" class="error"></div>
+
+        <button type="submit" class="btn btn-outline-primary">Berechnen</button>
         <div class="maxLenght">
         <table>
             <tbody>

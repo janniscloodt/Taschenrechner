@@ -4,14 +4,19 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -23,17 +28,22 @@ public class TaschenrechnerConrtoller {
         this.taschenrechnerService = taschenrechnerService;
     }
 
+
     @GetMapping("/")
     public String getNumber(Model model)
     {
       model.addAttribute("validMath", new ValidMath());
       return "index.html";
     }
-    List <String> history = new ArrayList<String>();
+    List<String> history = new ArrayList<String>();
 
-    @PostMapping(value = "/")
-    public String ergebnis(@Valid ValidMath validMath, Model model)
+    @PostMapping("/")
+    public String ergebnis(@Valid ValidMath validMath, Model model, BindingResult bindingResult)
     {
+        if (bindingResult.hasErrors()) {
+            System.out.println("Validation errors: " + bindingResult.getAllErrors());
+            return "index.html";
+        }
             String math = validMath.getMathValue();
             float ergebnis = 0;
             int calcLog = taschenrechnerService.calc(validMath.getMathValue());
