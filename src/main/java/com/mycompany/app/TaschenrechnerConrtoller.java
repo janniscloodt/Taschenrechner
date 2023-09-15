@@ -24,12 +24,13 @@ public class TaschenrechnerConrtoller {
     }
 
     @GetMapping("/")
-    public String getNumber(ValidMath validMath)
+    public String getNumber(Model model)
     {
-        return "index.html";
-
+      model.addAttribute("validMath", new ValidMath());
+      return "index.html";
     }
     List <String> history = new ArrayList<String>();
+
     @PostMapping(value = "/")
     public String ergebnis(@Valid ValidMath validMath, Model model)
     {

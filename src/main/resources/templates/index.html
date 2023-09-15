@@ -15,7 +15,7 @@
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
 
-<form action="#" th:action="/" th:object="${validMath}" method="post">
+<form action="#" th:action="@{/}" th:object="${validMath}" method="post">
     <div class="form-group">
 <input type="text" th:field="*{mathValue}" name="value" class="form-control" placeholder="1+1">
     <button type="submit" class="btn btn-outline-primary">Berechnen</button>
