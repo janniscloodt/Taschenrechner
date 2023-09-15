@@ -1,9 +1,15 @@
 package com.mycompany.app;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 
 @Service
 public class TaschenrechnerService {
+
     public static int calc(String line) {
         if (line.contains("+")) {
             return 1;
@@ -18,24 +24,48 @@ public class TaschenrechnerService {
     }
 
     public static String[] cutstr(String input) {
-        String[] result = input.split("\\+|\\*|-|:");
+        @NotNull
+        String[] result;
+        result = input.split("\\+|\\*|-|:");
         return result;
     }
 
-    public static float berechnen(float a, float b, int art) {
+    public static float berechnen(String zahlen[], int art) {
 
-        float ergebnis = 0;
+        for(int i = 0; i<zahlen.length; i++)
+        {
+            if(zahlen[i].equals(""))
+            {
+                zahlen[i] = "0";
+            }
+        }
+
+
+
+        float ergebnis = Float.valueOf(zahlen[0]);
         if (art == 1) {
-            ergebnis = a + b;
+            for(int i = 1; i < zahlen.length; i++)
+            {
+                ergebnis += Float.valueOf(zahlen[i]);
+            }
         }
         if (art == 2) {
-            ergebnis = a - b;
+            for(int i = 1; i < zahlen.length; i++)
+            {
+                ergebnis -= Float.valueOf(zahlen[i]);
+            }
         }
         if (art == 3) {
-            ergebnis = a * b;
+            for(int i = 1; i < zahlen.length; i++)
+            {
+                ergebnis *= Float.valueOf(zahlen[i]);
+            }
         }
         if (art == 4) {
-            ergebnis = a / b;
+            for(int i = 1; i < zahlen.length; i++)
+            {
+                ergebnis -= Float.valueOf(zahlen[i]);
+            }
         }
 
         return ergebnis;

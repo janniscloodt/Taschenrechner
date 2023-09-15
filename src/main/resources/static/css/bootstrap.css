@@ -45,6 +45,22 @@ h1 {
   text-align: center;
 }
 
+body {
+  background-image: url('../img/Background.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+
+td {
+  padding: 5px;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -71,6 +87,26 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fff;
+}
+
+.blocktext{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+
+.maxLenght{
+  white-space: nowrap;
+  width:350px;
+  overflow: auto;
+  overflow-y: hidden;
+  -ms-overflow-y: hidden;
+  text-align: left;
 }
 
 [tabindex="-1"]:focus {

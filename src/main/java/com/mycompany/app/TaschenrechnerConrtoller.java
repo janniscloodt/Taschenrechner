@@ -1,9 +1,18 @@
 package com.mycompany.app;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 @Controller()
@@ -14,34 +23,28 @@ public class TaschenrechnerConrtoller {
         this.taschenrechnerService = taschenrechnerService;
     }
 
-    @GetMapping("/home")
-    public String getNumber(Model model)
+    @GetMapping("/")
+    public String getNumber(ValidMath validMath)
     {
-
-        String a = "1";
-        String b = "1";
-        int ergebnis = 2;
-        model.addAttribute("key", a);
-        model.addAttribute("key1", b);
-
-        ergebnis = Integer.valueOf(a) + Integer.valueOf(b);
-
         return "index.html";
 
     }
-
-    @RequestMapping(value = "/berechnen")
-    public String ergebnis(@RequestParam("value") String value, Model model)
+    List <String> history = new ArrayList<String>();
+    @PostMapping(value = "/")
+    public String ergebnis(@Valid ValidMath validMath, Model model)
     {
-        float ergebnis = 0;
-        int calcLog = taschenrechnerService.calc(value);
-        String[] result = taschenrechnerService.cutstr(value);
-        ergebnis = taschenrechnerService.berechnen(Float.valueOf(result[0]), Float.valueOf(result[1]), calcLog);
+            String math = validMath.getMathValue();
+            float ergebnis = 0;
+            int calcLog = taschenrechnerService.calc(validMath.getMathValue());
+            String[] result = taschenrechnerService.cutstr(validMath.getMathValue());
+            ergebnis = taschenrechnerService.berechnen(result, calcLog);
 
-        model.addAttribute("ergebnis", String.valueOf(ergebnis));
+            history.add(0,math + " = " + String.valueOf(ergebnis));
+            if(history.size() > 7)
+                history.remove(history.size() - 1);
+
+        //connect history
+        model.addAttribute("history", history);
         return "index.html";
     }
-
-
-
 }

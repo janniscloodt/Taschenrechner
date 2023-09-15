@@ -2,22 +2,35 @@
 <html lang="de" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <link th:href = "@{/css/bootstrap.css}" rel="stylesheet">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-<h1>Taschenrechner</h1>
+
+<div class="blocktext">
+<h1>Taschenrechner</h1><br>
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
 
-<form action="/berechnen">
+<form action="#" th:action="/" th:object="${validMath}" method="post">
     <div class="form-group">
-<input type="text" name="value" class="form-control" placeholder="1+1">
+<input type="text" th:field="*{mathValue}" name="value" class="form-control" placeholder="1+1">
     <button type="submit" class="btn btn-outline-primary">Berechnen</button>
-        <p th:text="${ergebnis}">Ergebnis</p>
-    </div>
-    </div>
+        <div class="maxLenght">
+        <table>
+            <tbody>
+            <tr th:each="book : ${history}">
+                <td><span th:text="${book}"> Title </span></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+      </div>
+     </div>
+</div>
 </div>
 
 
