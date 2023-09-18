@@ -89,6 +89,10 @@ body {
   background-color: #fff;
 }
 
+.customTextBox {
+  background-color: rgb(128, 128, 128);
+}
+
 .blocktext{
   position: absolute;
   top: 45%;

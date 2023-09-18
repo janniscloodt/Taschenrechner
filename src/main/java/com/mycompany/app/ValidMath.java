@@ -1,11 +1,11 @@
 package com.mycompany.app;
 
-import javax.validation.constraints.Min;
 
-
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.ui.Model;
 
@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidMath {
-    @NotEmpty
+
+    @Min(2)
     private String mathValue;
 
     public String getMathValue()

@@ -38,7 +38,7 @@ public class TaschenrechnerConrtoller {
     List<String> history = new ArrayList<String>();
 
     @PostMapping("/")
-    public String ergebnis(@Valid ValidMath validMath, Model model, BindingResult bindingResult)
+    public String ergebnis(@Valid ValidMath validMath, Model model, final BindingResult bindingResult)
     {
         if (bindingResult.hasErrors()) {
             System.out.println("Validation errors: " + bindingResult.getAllErrors());
@@ -57,5 +57,11 @@ public class TaschenrechnerConrtoller {
         //connect history
         model.addAttribute("history", history);
         return "index.html";
+    }
+
+    @RequestMapping("/guide")
+    public String anleitung()
+    {
+        return "Anleitung.html";
     }
 }
